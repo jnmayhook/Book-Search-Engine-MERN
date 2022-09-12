@@ -1,9 +1,19 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/googlebooks', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/googlebooks', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+}
+)
+  .then(() => console.log('connected'))
+  .catch(e => console.log(e))
+module.exports = mongoose.connection
+;
 
-});
 
-module.exports = mongoose.connection;
+
+// mongodb+srv://jnmayhook:xYYG1HW2qTzndVsG@cluster0.6drdrzs.mongodb.net/googlebooks?retryWrites=true&w=majority
+
+// mongodb+srv://jnmayhook:xYYG1HW2qTzndVsG@cluster0.6drdrzs.mongodb.net/googlebooks?retryWrites=true&w=majority

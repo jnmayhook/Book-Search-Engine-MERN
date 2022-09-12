@@ -13,7 +13,15 @@ const LoginForm = () => {
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const [ login, { error }] = useMutation(LOGIN_USER);
+  const [login, { error }] = useMutation(LOGIN_USER);
+
+  // useEffect(() => {
+  //   if (error) {
+  //     setShowAlert(true)
+  //   } else {
+  //     setShowAlert(false)
+  //   }
+  // });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -31,22 +39,22 @@ const LoginForm = () => {
     }
 
     try {
-      const { data } = await login({ 
-        variables: userFormData, 
-      });
-      
-      Auth.login(data.login.token);
-    } catch (err) {
-      console.error(err);
-      setShowAlert(true);
+      const { data } = await login({
+        variables: { ...userFormData }
+      })
+      console.log(data)
+      Auth.login(data.login.token)
+    } catch (error) {
+      console.error(error);
+
     }
 
     setUserFormData({
-      username: '',
       email: '',
       password: '',
     });
   };
+
 
   return (
     <>
@@ -91,5 +99,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-
